@@ -1,0 +1,68 @@
+<div class="dashboard-container">
+      <header class="kpi-header">
+        <div class="card">
+          <span>Total Sensors</span>
+          <strong>{{ store.kpis().totalCount }}</strong>
+        </div>
+        <div class="card critical">
+          <span>Critical Alerts</span>
+          <strong>{{ store.kpis().criticalCount }}</strong>
+        </div>
+        <div class="card warning">
+          <span>Warnings</span>
+          <strong>{{ store.kpis().warningCount }}</strong>
+        </div>
+        <div class="card">
+          <span>System Avg</span>
+          <strong>{{ store.kpis().avgValue }} PSI</strong>
+        </div>
+      </header>
+
+      <section class="controls">
+        <input
+          type="text"
+          placeholder="Filter by Name or ID..."
+          [value]="store.searchQuery()"
+          (input)="onSearchInput($event)"
+        />
+
+        <div class="filter-buttons">
+          <button
+            [class.active]="store.selectedStatusFilter() === 'ALL'"
+            (click)="store.setStatusFilter('ALL')">
+            All
+          </button>
+          <button
+            [class.active]="store.selectedStatusFilter() === 'CRITICAL'"
+            (click)="store.setStatusFilter('CRITICAL')">
+            Critical
+          </button>
+          <button
+            [class.active]="store.selectedStatusFilter() === 'WARNING'"
+            (click)="store.setStatusFilter('WARNING')">
+            Warning
+          </button>
+        </div>
+      </section>
+
+      <!-- Virtual Scrolling Viewport for rendering thousands of items efficiently -->
+      <cdk-virtual-scroll-viewport itemSize="52" class="virtual-viewport">
+        <div
+          *cdkVirtualFor="let sensor of store.filteredSensors(); trackBy: trackBySensorId"
+          class="sensor-row"
+          [ngClass]="sensor.status.toLowerCase()">
+          
+          <span class="sensor-id">{{ sensor.id }}</span>
+          <span class="sensor-name">{{ sensor.name }}</span>
+          <span class="sensor-location">{{ sensor.location }}</span>
+          
+          <span class="sensor-value">
+            {{ sensor.value }} {{ sensor.unit }}
+          </span>
+
+          <span class="badge" [ngClass]="sensor.status.toLowerCase()">
+            {{ sensor.status }}
+          </span>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>

@@ -1,0 +1,90 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 1.5rem;
+  background-color: #121418;
+  color: #e0e6ed;
+  font-family: system-ui, sans-serif;
+
+  .kpi-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .card {
+      background: #1e222d;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      
+      span { font-size: 0.85rem; color: #8a94a6; }
+      strong { font-size: 1.5rem; margin-top: 0.25rem; }
+
+      &.critical strong { color: #ff4d4f; }
+      &.warning strong { color: #faad14; }
+    }
+  }
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    input {
+      width: 300px;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #2d3548;
+      background: #1b202e;
+      color: #fff;
+    }
+
+    .filter-buttons button {
+      background: #1b202e;
+      border: 1px solid #2d3548;
+      color: #8a94a6;
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &.active {
+        background: #0066cc;
+        color: #fff;
+        border-color: #0066cc;
+      }
+    }
+  }
+
+  .virtual-viewport {
+    flex: 1;
+    width: 100%;
+    border: 1px solid #2d3548;
+    border-radius: 8px;
+    background: #181c27;
+
+    .sensor-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 180px 140px 120px;
+      align-items: center;
+      padding: 0 1rem;
+      height: 52px;
+      border-bottom: 1px solid #262c3d;
+
+      .badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-align: center;
+        font-weight: bold;
+
+        &.normal { background: rgba(82, 196, 26, 0.2); color: #52c41a; }
+        &.warning { background: rgba(250, 173, 20, 0.2); color: #faad14; }
+        &.critical { background: rgba(255, 77, 79, 0.2); color: #ff4d4f; }
+      }
+    }
+  }
+}
