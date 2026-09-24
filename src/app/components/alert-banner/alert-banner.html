@@ -1,0 +1,18 @@
+<div class="alert-container">
+    <div class="connection-status" [ngClass]="signalRService.connectionState().toLowerCase()">
+    SignalR Status: {{ signalRService.connectionState() }}
+    </div>
+
+    @if (signalRService.activeAlerts().length > 0) {
+    <div class="active-alerts">
+        <h3>Live System Warnings</h3>
+        @for (alert of signalRService.activeAlerts(); track alert.timestamp) {
+        <div class="alert-card">
+            <strong>{{ alert.deviceId }}</strong> - {{ alert.message }}
+            <span class="value">{{ alert.value }} PSI</span>
+            <small>{{ alert.timestamp | date:'HH:mm:ss' }}</small>
+        </div>
+        }
+    </div>
+    }
+</div>

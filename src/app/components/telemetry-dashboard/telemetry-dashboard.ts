@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 
-import { TelemetryStore } from '../../stores/telemetry.store';
-import { SensorMetric } from '../../models/SensorMetric';
+import { SignalrTelemetryStore } from '../../stores/signalr-telemetry.store';
+import { TelemetryMetricDto } from '../../models/TelemetryMetricDto';
 
 @Component({
   imports: [CommonModule, ScrollingModule],
@@ -14,14 +14,14 @@ import { SensorMetric } from '../../models/SensorMetric';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TelemetryDashboard {
-  readonly store = inject(TelemetryStore);
+  readonly store = inject(SignalrTelemetryStore);
 
   onSearchInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.store.updateSearch(input.value);
   }
 
-  trackBySensorId(_: number, sensor: SensorMetric): string {
-    return sensor.id;
+  trackByMetric(_: number, metric: TelemetryMetricDto): string {
+    return `${metric.deviceId}-${metric.metricName}-${metric.timestamp}`;
   }
 }
