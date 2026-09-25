@@ -1,0 +1,8 @@
+{
+  "/hubs": {
+    "target": "https://localhost:7132",
+    "secure": false,
+    "ws": true,
+    "changeOrigin": true
+  }
+}
